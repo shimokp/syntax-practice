@@ -18,3 +18,4 @@ connection.query('show databases', function( error, results, fields) {
   console.log(error)
   console.log(results[0])
 });
+
