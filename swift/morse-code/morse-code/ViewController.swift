@@ -12,7 +12,9 @@ class ViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view, typically from a nib.
+		
+		let container = BinaryCodeContainer(codes: [.o, .i, .i])
+		print(container.description)
 	}
 
 	override func didReceiveMemoryWarning() {
