@@ -406,7 +406,7 @@ struct P07 {
                 print()
             }
         }
-        
+
         if let friend = friendParty.members.first {
             for enemy in enemyParty.members {
                 performAttack(by: enemy, to: friend)
@@ -462,37 +462,74 @@ struct P08 {
         init(members: [Character]) {
             self.members = members
         }
+
+        func copy(member : Character) -> Party {
+            var members: [Character] = []
+            for m in members {
+                if m.name != member.name {
+                    members.append(m)
+                } else {
+                    members.append(member)
+                }
+            }
+            return Party(members: members)
+        }
     }
 
-    func performAttack(by character: Character, to target: Character) {
+    func performAttack(by character: Character, to target: inout Character) {
         print("\(character.name) attacks.")
 
         let damage = Swift.max(0, (character.attack - target.defense) / 2)
+//        target.copy(hp: target-damage, mp: target.mp)
 //        target.hp -= damage
 
         print("\(target.name) took \(damage) damage!")
         print()
+        target = target.copy(hp: target.hp - damage, mp: target.mp)
     }
 
     func main() {
-        let friendParty = Party(members: [
+        var friendParty = Party(members: [
             Character(name: "Hero" /* "ゆうしゃ" */, hp: 153, mp: 25, attack: 162, defense: 97),
             Character(name: "Warrior" /* "せんし" */, hp: 198, mp: 0, attack: 178, defense: 111),
             Character(name: "Cleric" /* "そうりょ" */, hp: 101, mp: 35, attack: 76, defense: 55),
             Character(name: "Mage" /* "まほうつかい" */, hp: 77, mp: 58, attack: 60, defense: 57),
             ])
-        let enemyParty = Party(members: [
+        var enemyParty = Party(members: [
             Character(name: "Archfiend" /* "まおう" */, hp: 999, mp: 99, attack: 185, defense: 58),
             Character(name: "Dark Knight" /* "あんこくきし" */, hp: 250, mp: 0, attack: 181, defense: 93),
             Character(name: "Demon Priest" /* "デモンプリースト" */, hp: 180, mp: 99, attack: 121, defense: 55),
             ])
 
-        if let enemy = enemyParty.members.first {
+        for m in friendParty.members {
+            print(m.description)
+            print()
+        }
+
+        if var enemy = enemyParty.members.first {
             for mine in friendParty.members {
-                performAttack(by: mine, to: enemy)
+                performAttack(by: mine, to: &enemy)
+
+                //反映させる
+                enemyParty = enemyParty.copy(member: enemy)
+
+                print()
             }
+        }
+
+        if var friend = friendParty.members.first {
+            for enemy in enemyParty.members {
+                performAttack(by: enemy, to: &friend)
+                friendParty = friendParty.copy(member: friend)
+                print()
+            }
+        }
+
+        for m in friendParty.members {
+            print(m.description)
+            print()
         }
     }
 }
 
-P07().main()
+P08().main()
