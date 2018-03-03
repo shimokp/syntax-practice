@@ -189,5 +189,104 @@ struct P04 {
     }
 }
 
+struct P05 {
+    class Character {
+        // var があればMutableClass, letだけならImutableClass
+        let name: String
+        let hp: Int
+        let mp: Int
+        let attack: Int
+        let defense: Int
 
+        init(name: String, hp: Int, mp: Int, attack: Int, defense: Int) {
+            self.name = name
+            self.hp = hp
+            self.mp = mp
+            self.attack = attack
+            self.defense = defense
+        }
 
+        func copy(hp: Int? = nil, mp: Int? = nil) -> Character {
+            return Character(
+                name: self.name,
+                hp: hp ?? self.hp,
+                mp: mp ?? self.mp,
+                attack: self.attack,
+                defense: self.defense
+            )
+        }
+    }
+
+    func performAttack(by character: Character, to target: Character) -> Character {
+        let damage = (character.attack - target.defense) / 2
+        return target.copy(hp: target.hp - damage, mp: target.mp)
+    }
+
+    func main() {
+        var hero = Character(name: "Hero" /* "ゆうしゃ" */, hp: 153, mp: 25, attack: 162, defense: 97)
+        var archfiend = Character(name: "Archfiend" /* "まおう" */, hp: 999, mp: 99, attack: 185, defense: 58)
+
+        print(hero.name)
+        print("HP \(hero.hp)")
+        print()
+
+        archfiend = performAttack(by: hero, to: archfiend)
+        hero = performAttack(by: archfiend, to: hero)
+
+        print(hero.name)
+        print("HP \(hero.hp)")
+        print()
+    }
+}
+
+struct P06 {
+    struct Character {
+        // var があればMutableClass, letだけならImutableClass
+        let name: String
+        var hp: Int
+        var mp: Int
+        let attack: Int
+        let defense: Int
+
+        init(name: String, hp: Int, mp: Int, attack: Int, defense: Int) {
+            self.name = name
+            self.hp = hp
+            self.mp = mp
+            self.attack = attack
+            self.defense = defense
+        }
+
+        func copy(hp: Int? = nil, mp: Int? = nil) -> Character {
+            return Character(
+                name: self.name,
+                hp: hp ?? self.hp,
+                mp: mp ?? self.mp,
+                attack: self.attack,
+                defense: self.defense
+            )
+        }
+    }
+
+    func performAttack(by character: Character, to target: inout Character) {
+        let damage = (character.attack - target.defense) / 2
+        target.hp -= damage
+    }
+
+    func main() {
+        var hero = Character(name: "Hero" /* "ゆうしゃ" */, hp: 153, mp: 25, attack: 162, defense: 97)
+        var archfiend = Character(name: "Archfiend" /* "まおう" */, hp: 999, mp: 99, attack: 185, defense: 58)
+
+        print(hero.name)
+        print("HP \(hero.hp)")
+        print()
+
+        performAttack(by: hero, to: &archfiend)
+        performAttack(by: archfiend, to: &hero)
+
+        print(hero.name)
+        print("HP \(hero.hp)")
+        print()
+    }
+}
+
+P06().main()
