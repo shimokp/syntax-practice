@@ -96,6 +96,11 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.display1,
             ),
+            new FlatButton(
+              child: new Text('hoge'),
+              onPressed: _incrementCounter,
+              color: Colors.black12,
+            ),
           ],
         ),
       ),
