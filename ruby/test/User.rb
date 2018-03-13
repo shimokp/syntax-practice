@@ -1,27 +1,23 @@
 class User
 
-    @name
-    @age
-
-    def age
-        @age
+    def initialize
+        puts "initialized User"
     end
 
-    def age(value)
-        @age = value
+    def A
+        @instance = "By A"
     end
 
-    def printName
-        puts "name"
+    def B
+        puts @instance
     end
 
-    def printAge
-        puts @age
-    end
+    # attr_accessor :id
 
 end
 
 
-user = User.new
-user.age(15)
-user.printAge
+a = User.new
+a.A
+a.B
+
