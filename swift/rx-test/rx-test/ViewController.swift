@@ -10,16 +10,34 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+
+
 class ViewController: UIViewController {
 	let disposeBag = DisposeBag()
 
 	let kkk = PublishSubject<String>()
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var field: UITextField!
 
-		let strings: [String] = ["1","2","3"]
-		let nums: [Int] = strings.flatMap { _ in Optional<Int>(4) }
+    let sex: Sex = .man
+
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        field.rx.text.map {
+            "\($0!.count)"
+            }
+            .bind(to: label.rx.text)
+            .disposed(by: disposeBag)
+
+
+
+
+
+        let strings: [String] = ["1","2","3"]
+        let nums: [Int] = strings.flatMap { _ in Optional<Int>(4) }
 		print(nums) // [1,2,3]
 
 		let _: [Int?] = strings.map { Int($0) }
@@ -93,5 +111,22 @@ class ViewController: UIViewController {
 
 		kkk.onNext("\(num)")
 		num += 1
+
+        let a = S(a: 1, b: 2) == S(a: 1, b: 2)
 	}
+
 }
+
+struct S {
+    let a: Int
+    let b: Int
+}
+
+extension S: Equatable {
+    static func ==(lhs: S, rhs: S) -> Bool {
+        return lhs.a == rhs.a
+        && lhs.b == rhs.b
+    }
+}
+
+
