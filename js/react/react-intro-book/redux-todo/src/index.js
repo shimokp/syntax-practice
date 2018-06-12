@@ -1,11 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { render } from 'react-dom';
 import { createStore } from 'redux';
 
 const initialState = {
+    task: '',
     tasks: []
 }
 
@@ -16,30 +14,67 @@ function tasksReducer(state = initialState, action) {
                 ...state,
                 tasks: state.tasks.concat([action.payload.task])
             }
+        case 'INPUT_TASK':
+            return {
+                ...state,
+                task: action.payload.task
+            }
+        case 'RESET_TASK':
+            return {
+                ...state,
+                tasks: []
+            }
         default:
             return state
     }
 }
-
 const addTask = (task) => ({
     type: 'ADD_TASK',
     payload: {
         task
     }
 })
+const resetTask = () => ({
+    type: 'RESET_TASK'
+})
+const inputTask = (task) => ({
+    type: 'INPUT_TASK',
+    payload: {
+        task
+    }
+})
 
 const store = createStore(tasksReducer)
-function handleChange() {
-    console.log('handle change')
-    console.log(store.getState())
+store.dispatch(addTask('Store learning'))
+store.dispatch(resetTask())
+console.log(store.getState())
+
+function TodoApp({ store }) {
+    const { task, tasks } = store.getState()
+    return (
+        <div>
+            <input type='text' onChange={(e) => store.dispatch(inputTask(e.target.value))} />
+            <input type='button' value='add' onClick={() => store.dispatch(addTask(task))} />
+            <ul>
+                {
+                    tasks.map(function (item, i) {
+                        return (
+                            <li key={i}>{item}</li>
+                        )
+                    })
+                }
+            </ul>
+        </div>
+    )
 }
 
-const unsubscribe = store.subscribe(handleChange)
+function renderApp(store) {
+    render(
+        <TodoApp store={store} />,
+        document.getElementById('root')
+    )
+}
 
-console.log(store.getState())
-store.dispatch(addTask('Store learning'))
-store.dispatch(addTask('Store learning'))
-store.dispatch(addTask('Store learning'))
+store.subscribe(() => renderApp(store))
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+renderApp(store)
