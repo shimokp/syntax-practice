@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import PropTypes from 'prop-types';
 
 const List = () => {
   return <ul>
@@ -11,6 +12,15 @@ const List = () => {
 const Hello = (props) => {
   return <div>Hello, {props.children}!!!</div>
 }
+
+const Yolo = (props) => {
+  return <div>Yolo, {props.name}</div>
+}
+
+Yolo.propTypes = {
+  name: PropTypes.string.isRequired
+}
+
 class App extends Component {
   render() {
     return (
@@ -25,6 +35,7 @@ class App extends Component {
         <List />
         <Hello children='hogehoge'>
         </Hello>
+        <Yolo name='hoge' />
       </div>
     );
   }
