@@ -6,28 +6,21 @@ export default class App extends React.Component {
     super(props);
     this.state = { todos: [{ title: 'hoge' }, { title: 'hoge2' }] };
     this.onPressAddTodo = this.onPressAddTodo.bind(this);
+    this.changeText = this.changeText.bind(this)
   }
 
-  // getInitialState() {
-  //   console.log("getInitialState")
-  //   return {
-  //     todos: []
-  //   }
-  // }
-
-  onPressAddTodo(e) {
-    console.log("todos");
-
-    const { todos } = this.state;
-    todos.push({
+  onPressAddTodo() {
+    const task = {
       title: this.state.text
-    });
-
-    console.log(todos);
+    }
 
     this.setState({
-      todos: todos //this.state.todos//Object.assign(this.state.todos, { title: this.state.title })
+      todos: [...this.state.todos, task]
     });
+  }
+
+  changeText(text) {
+    this.setState({ text })
   }
 
   render() {
@@ -40,22 +33,12 @@ export default class App extends React.Component {
         <TextInput
           backgroundColor="skyblue"
           width={120}
-          ref={(el) => { this.text = el; }}
-          onChangeText={(text) => {
-            this.setState({ text })
-          }}
+          onChangeText={this.changeText}
           value={this.state.text}
-        //   ref
-        // onChangeText={(text) => {
-        //   console.log(text);
-        //   this.setState({ text: text })
-        //   console.log(this.state)
-        // }}
         />
         <Button title="Add" onPress={this.onPressAddTodo} />
         <FlatList
           data={this.state.todos}
-          execData={this.state.todos}
           renderItem={({ item }) => <Text>{item.title}</Text>}
           keyExtractor={(item, index) => index.toString()}
         // removeClippedSubviews={false}
