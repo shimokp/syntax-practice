@@ -6,7 +6,7 @@ export const addTask = (task) => ({
 })
 
 export const resetTask = () => ({
-    type: 'RESET_TASK'
+    type: 'RESET_TASK',
 })
 
 export const inputTask = (task) => ({
