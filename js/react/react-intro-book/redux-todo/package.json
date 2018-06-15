@@ -11,8 +11,8 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "react-scripts": "1.1.4",
     "redux-logger": "^3.0.6",
-    "shortid": "^2.2.8",
-    "thunk": "0.0.1"
+    "redux-thunk": "^2.3.0",
+    "shortid": "^2.2.8"
   },
   "scripts": {
     "start": "react-scripts start",
