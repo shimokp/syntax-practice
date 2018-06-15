@@ -1,5 +1,5 @@
 const initialState = {
-    task: '',
+    taskTitle: '',
     tasks: []
 }
 
@@ -8,12 +8,15 @@ export default function tasksReducer(state = initialState, action) {
         case 'ADD_TASK':
             return {
                 ...state,
-                tasks: state.tasks.concat([action.payload.task])
+                tasks: state.tasks.concat([{
+                    title: action.payload.taskTitle,
+                    id: action.payload.id
+                }])
             }
         case 'INPUT_TASK':
             return {
                 ...state,
-                task: action.payload.task
+                taskTitle: action.payload.taskTitle
             }
         case 'RESET_TASK':
             return {

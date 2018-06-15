@@ -5,18 +5,18 @@ import { push } from 'react-router-redux';
 
 function mapStateToProps({ tasks }) {
     return {
-        task: tasks.task,
+        taskTitle: tasks.taskTitle,
         tasks: tasks.tasks
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        addTask(task) {
-            dispatch(addTask(task))
+        addTask(taskTitle) {
+            dispatch(addTask(taskTitle))
         },
-        inputTask(task) {
-            dispatch(inputTask(task))
+        inputTask(taskTitle) {
+            dispatch(inputTask(taskTitle))
         },
         resetTask() {
             dispatch(resetTask())
@@ -24,8 +24,8 @@ function mapDispatchToProps(dispatch) {
         redirectToError() {
             dispatch(push('/error'))
         },
-        asyncAddTask(task) {
-            dispatch(asyncAddTask(task))
+        asyncAddTask(taskTitle) {
+            dispatch(asyncAddTask(taskTitle))
         }
     }
 }
