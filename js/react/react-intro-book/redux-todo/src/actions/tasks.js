@@ -1,11 +1,23 @@
 import shortid from 'shortid';
 
-export const addTask = (taskTitle) => ({
-    type: 'ADD_TASK',
-    payload: {
-        id: shortid.generate(),
-        taskTitle
+export const addTask = (taskTitle) => ((dispatch, getState) => {
+    const {
+        tasks: {
+            tasks
+        }
+    } = getState()
+    const isDuplicated = tasks.some(task => task.title === taskTitle)
+    if (isDuplicated) {
+        return
     }
+
+    dispatch({
+        type: 'ADD_TASK',
+        payload: {
+            id: shortid.generate(),
+            taskTitle
+        }
+    })
 })
 
 export const resetTask = () => ({
