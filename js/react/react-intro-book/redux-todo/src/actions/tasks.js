@@ -1,6 +1,9 @@
+import shortid from 'shortid';
+
 export const addTask = (task) => ({
     type: 'ADD_TASK',
     payload: {
+        id: shortid.generate(),
         task
     }
 })
@@ -14,4 +17,11 @@ export const inputTask = (task) => ({
     payload: {
         task
     }
+})
+
+export const asyncAddTask = (task) => ((dispatch, getState) => {
+    console.log('hoge')
+    setTimeout(() => {
+        dispatch(addTask(task))
+    }, 1000)
 })
