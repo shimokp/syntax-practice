@@ -4,9 +4,12 @@ import './App.css';
 import PropTypes from 'prop-types';
 
 const List = () => {
-  return <ul>
-    {[1, 2, 3].map(num => <li>{num}</li>)}
-  </ul>
+  return (
+    <ul>
+      {[1, 2, 3].map((index, num) =>
+        <li key={index}>{num}</li>)
+      }
+    </ul>)
 }
 
 const Hello = (props) => {
@@ -18,7 +21,7 @@ const Yolo = (props) => {
 }
 
 Yolo.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.number.isRequired
 }
 
 class App extends Component {
@@ -35,7 +38,7 @@ class App extends Component {
         <List />
         <Hello children='hogehoge'>
         </Hello>
-        <Yolo name='hoge' />
+        <Yolo name={3} />
       </div>
     );
   }
