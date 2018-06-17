@@ -6,6 +6,8 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Input from 'material-ui/Input';
 import List, { ListItem, ListItemText } from 'material-ui/List';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import './TodoApp.css'
 
 export default function TodoApp({ taskTitle, tasks, inputTask, addTask, resetTask, redirectToError, asyncAddTask }) {
     return (
@@ -27,15 +29,17 @@ export default function TodoApp({ taskTitle, tasks, inputTask, addTask, resetTas
                 }}>Async Add</Button>
                 <Button raised color='inherit' onClick={() => resetTask()}>Reset</Button>
                 <List>
-                    {
-                        tasks.map(function (item, i) {
-                            return (
-                                <ListItem key={i}>
-                                    <ListItemText primary={`・${item.title}`} />
-                                </ListItem>
-                            )
-                        })
-                    }
+                    <ReactCSSTransitionGroup transitionName='example' transitionEnterTimeout={300} transitionLeaveTimeout={0}>
+                        {
+                            tasks.map(function (item, i) {
+                                return (
+                                    <ListItem key={i}>
+                                        <ListItemText primary={`・${item.title}`} />
+                                    </ListItem>
+                                )
+                            })
+                        }
+                    </ReactCSSTransitionGroup>
                 </List>
                 <button onClick={() => redirectToError()} >Go to Error</button>
             </div>
