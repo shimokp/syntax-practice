@@ -3,7 +3,10 @@ import { connect } from 'react-redux'
 import * as actions from '../actions/Ranking'
 
 const mapStateToProps = (state, ownProps) => ({
-    categoryId: ownProps.categoryId
+    categoryId: ownProps.categoryId,
+    category: state.ranking.category,
+    ranking: state.ranking.ranking,
+    error: state.ranking.error,
 })
 
 const mapDispatchToProps = dispatch => ({

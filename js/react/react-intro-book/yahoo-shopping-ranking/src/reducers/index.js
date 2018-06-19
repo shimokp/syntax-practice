@@ -1,3 +1,2 @@
-export const reducers = (state = {
-    hoge: 1
-}) => state;
+export { default as shopping } from './shopping'
+export { default as ranking } from './ranking'

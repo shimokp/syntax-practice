@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
 import Ranking from './containers/Ranking';
+import Nav from './containers/Nav';
 
 class App extends Component {
   render() {
@@ -8,12 +9,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-            <ul>
-              <li><Link to='/all'>All</Link></li>
-              <li><Link to='/category/2502'>PC</Link></li>
-              <li><Link to='/category/10002'>Book</Link></li>
-            </ul>
-
+            <Nav />
             <Route path='/all' component={Ranking} />
             <Route
               path='/category/:id'
