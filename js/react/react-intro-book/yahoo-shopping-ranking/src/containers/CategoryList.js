@@ -4,7 +4,7 @@ import { fetchCategories } from '../actions/CategoryList';
 
 const mapStateToProps = state => {
     return {
-
+        categories: state.categoryList.categories
     }
 }
 
