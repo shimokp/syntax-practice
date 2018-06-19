@@ -21,13 +21,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case 'START_REQUEST':
+        case 'START_RANKING_REQUEST':
             return {
                 category: action.payload.category,
                 ranking: [],
                 error: false,
             }
-        case 'RECEIVE_DATA':
+        case 'RECEIVE_RANKING_DATA':
             return action.payload.error
                 ? { ...state, error: true }
                 : {

@@ -4,17 +4,17 @@ import qs from 'qs'
 import { replace } from 'react-router-redux';
 
 const startRequest = category => ({
-    type: 'START_REQUEST',
+    type: 'START_RANKING_REQUEST',
     payload: { category }
 })
 
 const receiveData = (category, error, response) => ({
-    type: 'RECEIVE_DATA',
+    type: 'RECEIVE_RANKING_DATA',
     payload: { category, error, response }
 })
 
 const finishRequest = category => ({
-    type: 'FINISH_REQUEST',
+    type: 'FINISH_RANKING_REQUEST',
     payload: { category }
 })
 
@@ -34,9 +34,9 @@ export const fetchRanking = categoryId => {
             appid: `${secret.APP_ID}-`,
             category_id: categoryId
         })
-
+        console.log(queryString)
         try {
-            const response = await fetchJsonp(`${secret.API_URL}?${queryString}`)
+            const response = await fetchJsonp(`${secret.API_CategoryRanking_URL}?${queryString}`)
             const data = await response.json()
             dispatch(receiveData(category, null, data))
         } catch (err) {

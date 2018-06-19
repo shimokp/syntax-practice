@@ -18,6 +18,7 @@ export default function Nav({ categories }) {
                     </Link>
                 </li>
             ))}
+            <li><Link to='/categories'>Category List</Link></li>
         </ul>
 
     )

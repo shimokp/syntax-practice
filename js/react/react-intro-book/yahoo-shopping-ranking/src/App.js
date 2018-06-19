@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import Ranking from './containers/Ranking';
 import Nav from './containers/Nav';
+import CategoryList from './containers/CategoryList';
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
                 ({ match }) => <Ranking categoryId={match.params.id} />
               }
             />
+            <Route path='/categories' component={CategoryList} />
           </div>
         </Router>
       </div>
