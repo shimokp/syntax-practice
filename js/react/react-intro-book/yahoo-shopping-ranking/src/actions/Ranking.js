@@ -23,6 +23,7 @@ export const fetchRanking = categoryId => {
         const categories = getState().shopping.categories
         const category = categories.find(category => (category.id === categoryId))
         if (typeof category === 'undefined') {
+            console.log("Not found", categoryId)
             // 対応するデータがない場合はトップページへリダイレクト
             dispatch(replace('/'))
             return
@@ -31,7 +32,7 @@ export const fetchRanking = categoryId => {
 
         const queryString = qs.stringify({
             appid: `${secret.APP_ID}-`,
-            categoryId
+            category_id: categoryId
         })
 
         try {

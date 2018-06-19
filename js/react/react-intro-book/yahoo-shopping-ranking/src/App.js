@@ -10,7 +10,9 @@ class App extends Component {
         <Router>
           <div>
             <Nav />
-            <Route path='/all' component={Ranking} />
+            <Route path='/all' render={
+              ({ match }) => <Ranking categoryId='1' />
+            } />
             <Route
               path='/category/:id'
               render={
