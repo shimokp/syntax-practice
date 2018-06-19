@@ -30,7 +30,7 @@ export default class Ranking extends React.Component {
                                 {
                                     ranking.map(item => (
                                         <li key={`ranking-item-${item.code}`}>
-                                            <img src={item.imageUrl} />
+                                            <img src={item.imageUrl} alt={item.name} />
                                             <a href={item.url} target='_blank'>{item.name}</a>
                                         </li>
                                     ))
@@ -49,5 +49,18 @@ Ranking.propTypes = {
     categoryId: PropTypes.string.isRequired,
     onMount: PropTypes.func.isRequired,
     onUpdate: PropTypes.func.isRequired,
-    ranking: PropTypes.array.isRequired
+
+    category: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+    }),
+    ranking: PropTypes.arrayOf(
+        PropTypes.shape({
+            code: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            url: PropTypes.string.isRequired,
+            imageUrl: PropTypes.string.isRequired,
+        })
+    ),
+    error: PropTypes.bool.isRequired
 }

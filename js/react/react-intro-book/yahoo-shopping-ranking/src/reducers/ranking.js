@@ -15,7 +15,7 @@ const getRanking = response => {
 
 const initialState = {
     category: undefined,
-    ranking: undefined,
+    ranking: [],
     error: false,
 }
 
@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
         case 'START_REQUEST':
             return {
                 category: action.payload.category,
-                ranking: undefined,
+                ranking: [],
                 error: false,
             }
         case 'RECEIVE_DATA':
