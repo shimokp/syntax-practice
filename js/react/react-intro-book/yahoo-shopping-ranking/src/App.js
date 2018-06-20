@@ -8,7 +8,7 @@ import CategoryList from './containers/CategoryList';
 class App extends Component {
   render() {
     return (
-      <div className="App" style={{ paddingLeft: 240 }}>
+      <div className="App" style={{ paddingLeft: 300 }}>
         <Nav />
         <Switch>
           <Route path='/all' render={

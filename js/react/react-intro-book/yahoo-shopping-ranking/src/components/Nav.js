@@ -4,28 +4,33 @@ import { Link } from 'react-router-dom'
 import Drawer from '@material-ui/core/Drawer';
 import { List, ListItem, ListItemText } from '@material-ui/core';
 
-export default function Nav({ categories, onClick }) {
-    const to = category => (
-        category.id === '1'
-            ? '/all'
-            : `/category/${category.id}`
-    )
+const to = category => (
+    category.id === '1'
+        ? '/all'
+        : `/category/${category.id}`
+)
+export default class Nav extends React.Component {
+    componentWillMount() {
+        this.props.onLoad()
+    }
 
-    return (
-        <Drawer variant="permanent">
-            <List style={{ width: 240 }}>
-                {categories.map(category => (
-                    <ListItem
-                        button
-                        key={`menu-item-${category.id}`}
-                    >
-                        <ListItemText primary={category.name} />
-                    </ListItem>
-                ))}
-                <li><Link to='/categories'>Category List</Link></li>
-            </List>
-        </Drawer>
-    )
+    render() {
+        return (
+            <Drawer variant="permanent" >
+                <List style={{ width: 300 }}>
+                    {this.props.categories.map(category => (
+                        <ListItem
+                            button
+                            key={`menu-item-${category.id}`}
+                            onClick={() => this.props.onClick(`/category/${category.id}`)}
+                        >
+                            <ListItemText primary={category.name} />
+                        </ListItem>
+                    ))}
+                </List>
+            </Drawer>
+        )
+    }
 }
 
 Nav.propTypes = {
@@ -35,5 +40,6 @@ Nav.propTypes = {
             name: PropTypes.string.isRequired
         })
     ).isRequired,
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    onLoad: PropTypes.func.isRequired
 }
