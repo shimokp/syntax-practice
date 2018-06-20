@@ -11,7 +11,7 @@ export default class Ranking extends React.Component {
         }
     }
     render() {
-        const { category, ranking, error } = this.props
+        const { category, ranking, error, isLoading } = this.props
         return (
             <div>
                 <h2>{
@@ -22,7 +22,7 @@ export default class Ranking extends React.Component {
                 {(() => {
                     if (error) {
                         return <p>Error occured...</p>
-                    } else if (typeof ranking === 'undefined') {
+                    } else if (isLoading === true) {
                         return <p>loading...</p>
                     } else {
                         return (

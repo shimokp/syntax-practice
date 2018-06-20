@@ -20,7 +20,7 @@ const finishRequest = category => ({
 
 export const fetchRanking = categoryId => {
     return async (dispatch, getState) => {
-        const categories = getState().shopping.categories
+        const categories = getState().categoryList.categories
         const category = categories.find(category => (category.id === categoryId))
         if (typeof category === 'undefined') {
             console.log("Not found", categoryId)

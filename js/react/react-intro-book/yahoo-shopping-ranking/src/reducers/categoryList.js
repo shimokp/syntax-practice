@@ -7,7 +7,7 @@ const getCategories = response => {
         const item = categories[key]
         res.push({
             id: item.Id,
-            title: item.Title.Long,
+            name: item.Title.Long,
             url: item.Url
         })
     }
@@ -25,12 +25,18 @@ export default (state = initialState, action) => {
             return {
                 categories: [],
                 error: false,
+                isLoading: true
             }
         case 'RECEIVE_CATEGORY_DATA':
             return action.payload.error
-                ? { ...state, error: true }
+                ? {
+                    ...state,
+                    isLoading: false,
+                    error: true
+                }
                 : {
                     ...state,
+                    isLoading: false,
                     categories: getCategories(action.payload.response)
                 }
         default:

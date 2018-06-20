@@ -6,6 +6,7 @@ const mapStateToProps = (state, ownProps) => ({
     categoryId: ownProps.categoryId,
     category: state.ranking.category,
     ranking: state.ranking.ranking,
+    isLoading: state.ranking.isLoading,
     error: state.ranking.error,
 })
 

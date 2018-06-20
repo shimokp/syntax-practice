@@ -17,6 +17,7 @@ const initialState = {
     category: undefined,
     ranking: [],
     error: false,
+    isLoading: false
 }
 
 export default (state = initialState, action) => {
@@ -26,12 +27,18 @@ export default (state = initialState, action) => {
                 category: action.payload.category,
                 ranking: [],
                 error: false,
+                isLoading: true
             }
         case 'RECEIVE_RANKING_DATA':
             return action.payload.error
-                ? { ...state, error: true }
+                ? {
+                    ...state,
+                    isLoading: false,
+                    error: true
+                }
                 : {
                     ...state,
+                    isLoading: false,
                     ranking: getRanking(action.payload.response)
                 }
         default:

@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
+import Drawer from '@material-ui/core/Drawer';
+import { List, ListItem, ListItemText } from '@material-ui/core';
 
-export default function Nav({ categories }) {
+export default function Nav({ categories, onClick }) {
     const to = category => (
         category.id === '1'
             ? '/all'
@@ -10,17 +12,19 @@ export default function Nav({ categories }) {
     )
 
     return (
-        <ul>
-            {categories.map(category => (
-                <li key={`nav-item-${category.id}`} >
-                    <Link to={to(category)}>
-                        {category.name}
-                    </Link>
-                </li>
-            ))}
-            <li><Link to='/categories'>Category List</Link></li>
-        </ul>
-
+        <Drawer variant="permanent">
+            <List style={{ width: 240 }}>
+                {categories.map(category => (
+                    <ListItem
+                        button
+                        key={`menu-item-${category.id}`}
+                    >
+                        <ListItemText primary={category.name} />
+                    </ListItem>
+                ))}
+                <li><Link to='/categories'>Category List</Link></li>
+            </List>
+        </Drawer>
     )
 }
 
@@ -30,5 +34,6 @@ Nav.propTypes = {
             id: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired
         })
-    ).isRequired
+    ).isRequired,
+    onClick: PropTypes.func.isRequired
 }
