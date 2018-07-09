@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 export default class Ranking extends React.Component {
     componentWillMount() {
@@ -23,7 +24,7 @@ export default class Ranking extends React.Component {
                     if (error) {
                         return <p>Error occured...</p>
                     } else if (isLoading === true) {
-                        return <p>loading...</p>
+                        return <CircularProgress size={50} />
                     } else {
                         return (
                             <ol>

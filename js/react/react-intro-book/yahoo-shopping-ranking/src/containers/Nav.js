@@ -5,7 +5,8 @@ import { fetchCategories } from '../actions/CategoryList';
 
 const mapStateToProps = state => ({
     // stateのプロパティをprops.categoriesに紐づけ
-    categories: state.categoryList.categories
+    categories: state.categoryList.categories,
+    isLoading: state.categoryList.isLoading
 })
 
 const mapDispatchToProps = dispatch => ({

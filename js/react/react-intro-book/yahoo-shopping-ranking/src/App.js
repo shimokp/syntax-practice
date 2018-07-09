@@ -11,6 +11,10 @@ class App extends Component {
       <div className="App" style={{ paddingLeft: 300 }}>
         <Nav />
         <Switch>
+          <Route exact path='/' render={() => (
+            <h1>右からカテゴリを選択してランキングを表示しよう</h1>
+          )
+          } />
           <Route path='/all' render={
             ({ match }) => <Ranking categoryId='1' />
           } />
