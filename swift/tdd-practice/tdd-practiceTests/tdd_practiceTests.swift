@@ -6,28 +6,49 @@
 //  Copyright © 2018 下村一将. All rights reserved.
 //
 
-import XCTest
+import Quick
+import Nimble
+import RxSwift
+import RxBlocking
+import RxTest
 
-class tdd_practiceTests: XCTestCase {
+@testable import tdd_practice
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+class ViewModelSpec: QuickSpec {
+    override func spec() {
+        var scheduler: TestScheduler!
+        let disposeBag = DisposeBag()
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+        beforeEach {
+            scheduler = TestScheduler(initialClock: 0)
+        }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+        describe("テキストが整数かどうか") {
+            it("テキストが整数の場合はtrue", closure: {
+                let xs: TestableObservable<String?> = scheduler.createHotObservable([
+                    Recorded.next(10, ""),
+                    Recorded.next(20, "123"),
+                    Recorded.next(30, "abc"),
+                    ])
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+                let observer = scheduler.createObserver(Bool.self)
+
+                ViewModel(text: xs.asObservable())
+                    .textIsInteger
+                    .subscribe(observer)
+                    .disposed(by: disposeBag)
+
+                scheduler.start()
+
+                expect(observer.events).to(equal([
+                    Recorded.next(10, false),
+                    Recorded.next(20, true),
+                    Recorded.next(30, false),
+                    ]))
+            })
         }
     }
-
 }
+
+extension Recorded: Equatable where Value: Equatable {}
+extension Event: Equatable where Element: Equatable {}
