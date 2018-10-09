@@ -47,6 +47,28 @@ class ViewModelSpec: QuickSpec {
                     ]))
             })
         }
+
+        describe("アラートの表示") {
+            it("100", closure: {
+                let xs = scheduler.createHotObservable([
+                    Recorded.next(10, "1"),
+                    Recorded.next(20, "100"),
+                    Recorded.next(30, nil),
+                    ])
+                let observer = scheduler.createObserver(String.self)
+
+                ViewModel(text: xs.asObservable())
+                    .showAlert
+                    .subscribe(observer)
+                    .disposed(by: disposeBag)
+
+                scheduler.start()
+
+                expect(observer.events).to(equal([
+                    Recorded.next(20, "Text is 100"),
+                    ]))
+            })
+        }
     }
 }
 
