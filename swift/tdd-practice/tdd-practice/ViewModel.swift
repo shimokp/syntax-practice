@@ -14,16 +14,17 @@ class ViewModel {
     let textIsInteger: Observable<Bool>
     let showAlert: Observable<String>
 
-    init(text: Observable<String?>) {
+    init(text: Observable<String?>,
+         buttonTapped: Observable<Void>) {
         let textIsInteger: Observable<Bool> = text.map {
             guard let text = $0 else { return false }
             return Int(text) != nil ? true : false
         }.share()
         self.textIsInteger = textIsInteger
 
-        let showAlert = text
-            .filter { $0 == "100" }
-            .map { _ in "Text is 100" }
+        let showAlert = buttonTapped
+            .map { _ in "Button Tapped!" }
+
         self.showAlert = showAlert
     }
 }

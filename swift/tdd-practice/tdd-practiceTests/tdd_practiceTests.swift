@@ -26,24 +26,21 @@ class ViewModelSpec: QuickSpec {
         describe("テキストが整数かどうか") {
             it("テキストが整数の場合はtrue", closure: {
                 let xs: TestableObservable<String?> = scheduler.createHotObservable([
-                    Recorded.next(10, ""),
-                    Recorded.next(20, "123"),
-                    Recorded.next(30, "abc"),
+                    Recorded.next(210, ""),
+                    Recorded.next(220, "123"),
+                    Recorded.next(230, "abc"),
                     ])
 
-                let observer = scheduler.createObserver(Bool.self)
+                let res = scheduler.start {
+                    ViewModel(text: xs.asObservable(),
+                              buttonTapped: .empty())
+                        .textIsInteger
+                }
 
-                ViewModel(text: xs.asObservable())
-                    .textIsInteger
-                    .subscribe(observer)
-                    .disposed(by: disposeBag)
-
-                scheduler.start()
-
-                expect(observer.events).to(equal([
-                    Recorded.next(10, false),
-                    Recorded.next(20, true),
-                    Recorded.next(30, false),
+                expect(res.events).to(equal([
+                    Recorded.next(210, false),
+                    Recorded.next(220, true),
+                    Recorded.next(230, false),
                     ]))
             })
         }
@@ -51,21 +48,16 @@ class ViewModelSpec: QuickSpec {
         describe("アラートの表示") {
             it("100", closure: {
                 let xs = scheduler.createHotObservable([
-                    Recorded.next(10, "1"),
-                    Recorded.next(20, "100"),
-                    Recorded.next(30, nil),
+                    Recorded.next(210, ()),
                     ])
-                let observer = scheduler.createObserver(String.self)
 
-                ViewModel(text: xs.asObservable())
-                    .showAlert
-                    .subscribe(observer)
-                    .disposed(by: disposeBag)
+                let res = scheduler.start {
+                    return ViewModel(text: .empty(),
+                                     buttonTapped: xs.asObservable()).showAlert
+                }
 
-                scheduler.start()
-
-                expect(observer.events).to(equal([
-                    Recorded.next(20, "Text is 100"),
+                expect(res.events).to(equal([
+                    Recorded.next(210, "Button Tapped!"),
                     ]))
             })
         }
