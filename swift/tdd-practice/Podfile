@@ -22,5 +22,6 @@ target 'tdd-practiceTests' do
  pod "Nimble"
  pod 'RxTest'
  pod 'RxBlocking'
+ pod 'Mockingjay'
 
 end
