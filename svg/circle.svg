@@ -2,5 +2,5 @@
     <circle cx="150" cy="150" r="85" fill="#FF8282">
         <animate attributeName="fill" attributeType="XML" dur="4s" repeatCount="indefinite" values="#c44; blue; #c44; white"/>
     </circle>
-    <animateTransform attributeName="transform" attributeType="XML" dur="1.5" repeatCount="indefinite" type="translate" values="0 0;50 0; 0 0; -50 0"/>
+    <animateTransform attributeName="transform" attributeType="XML" dur="1.5" repeatCount="indefinite" type="translate" values="0 0;50 0; 0 0; -5g 0 0"/>
 </svg>
