@@ -1,0 +1,27 @@
+$values: l, o, a, d, i, n, g;
+
+@each $value in $values {
+    $index: index($list: $values, $value: $value);
+
+    ##{$value} {
+        animation-name: moveCharacter;
+        animation-duration: #{0.5+2}s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        animation-delay: #{0.1 *  $index}s;
+    }
+}
+
+@keyframes moveCharacter {
+    0% {
+        transform: translateY(0);
+    }
+
+    15% {
+        transform: translateY(-10%);
+    }
+
+    30% {
+        transform: translateY(0);
+    }
+}
