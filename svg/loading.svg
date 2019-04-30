@@ -4,7 +4,13 @@
         <path fill="#DD7FA9" d="M164.717 235.98L163.719 264.542L139.483 249.397L164.717 235.98Z"/>
         <animateTransform attributeName="transform" dur="3s" from="0 150, 150" repeatCount="indefinite" to="360 150, 150" type="rotate"/>
     </g>
-    <circle cx="150" cy="150" r="17" fill="#ECC780"/>
-    <circle cx="202" cy="150" r="17" fill="#97CDBE"/>
-    <circle cx="98" cy="150" r="17" fill="#C98896"/>
+    <circle cx="98" cy="150" r="17" fill="#C98896">
+        <animate attributeName="opacity" attributeType="XML" begin="0.2" dur="1.0s" repeatCount="indefinite" values="0.1;1.0;0.1"/>
+    </circle>
+    <circle cx="150" cy="150" r="17" fill="#ECC780">
+        <animate attributeName="opacity" attributeType="XML" begin="0.4" dur="1.0s" repeatCount="indefinite" values="0.1;1.0;0.1"/>
+    </circle>
+    <circle cx="202" cy="150" r="17" fill="#97CDBE">
+        <animate attributeName="opacity" attributeType="XML" begin="0.6" dur="1.0s" repeatCount="indefinite" values="0.1;1.0;0.1"/>
+    </circle>
 </svg>
