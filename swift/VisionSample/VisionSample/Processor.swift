@@ -57,4 +57,15 @@ class Processor {
         // CVPixelBufferに対し、画像認識リクエストを実行
         try? VNImageRequestHandler(cvPixelBuffer: buffer, options: [:]).perform([request])
     }
+
+    func list() {
+        guard let classes = try? VNClassifyImageRequest.knownClassifications(forRevision: VNClassifyImageRequestRevision1) else {
+            return
+        }
+
+        classes.forEach {
+            print($0.identifier)
+        }
+
+    }
 }
