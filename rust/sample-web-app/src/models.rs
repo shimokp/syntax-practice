@@ -48,3 +48,15 @@ impl std::fmt::Display for Name {
         write!(f, "{}", self.0)
     }
 }
+
+#[test]
+fn test_name() {
+    let ok_value = "Nrskt";
+    assert!(Name::new(ok_value).is_ok());
+
+    let ok_value = "N";
+    assert!(Name::new(ok_value).is_ok());
+
+    let ng_value = "0";
+    assert!(Name::new(ng_value).is_err());
+}
