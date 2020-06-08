@@ -1,5 +1,5 @@
 [package]
-name = "sample-web-app"
+name = "sample_web_app"
 version = "0.1.0"
 authors = ["Kazumasa Shimomura <shimomura_kazumasa@cyberagent.co.jp>"]
 edition = "2018"
@@ -9,3 +9,4 @@ edition = "2018"
 [dependencies]
 tokio = { version = "0.2", features = ["macros"] }
 warp = "0.2"
+serde = { version = "1.0.104", features = ["derive"] }
