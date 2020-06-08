@@ -20,9 +20,9 @@ pub async fn get_user_handler(db: Database, id: u64) -> Result<impl Reply, Rejec
     }
 }
 
-pub async fn put_user_handler(db: Database, id: u64, user: User) -> Result<impl Reply, Rejection> {
+pub async fn put_user_handler(db: Database, user: User) -> Result<impl Reply, Rejection> {
     let mut db = db.lock().await;
-    db.insert(id, user.clone());
+    db.insert(user.id, user.clone());
     Ok(warp::reply::with_status(
         warp::reply::json(&user),
         warp::http::StatusCode::OK

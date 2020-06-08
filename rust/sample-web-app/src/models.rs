@@ -2,8 +2,8 @@ use serde::{ Serialize, Deserialize, de };
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct User {
-    id: u64,
-    name: Name
+    pub id: u64,
+    pub name: Name
 }
 
 // #[derive(Deserialize)] もできるが、Name::newには制約をつけているため、どんな文字列でもNameに変換できてしまうのを防ぐ

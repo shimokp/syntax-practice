@@ -31,8 +31,7 @@ fn get_user(db: Database) -> impl Filter<Extract = impl Reply, Error = Rejection
 
 fn put_user(db: Database) -> impl Filter<Extract = impl Reply, Error = Rejection> + Clone {
     users()
-        .and(user_id())
         .and(warp::put())
         .and(warp::body::json())
-        .and_then(move |id, body| put_user_handler(db.clone(), id, body))
+        .and_then(move |body| put_user_handler(db.clone(), body))
 }
