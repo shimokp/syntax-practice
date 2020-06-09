@@ -21,8 +21,6 @@ fn main() {
 }
 
 fn xc_handler() {
-    println!("Execute for Xcode");
-
     let paths: ReadDir = fs::read_dir(".")
         .expect("Cannot read");
 
@@ -30,15 +28,11 @@ fn xc_handler() {
         .map(|res| res.map(|e| e.path() ))
         .filter(|e| {
             e.as_ref().unwrap().extension()
-            .and_then(|e| e.to_str())
-            .map(|e| {
-                println!("{:?}", e);
-                e
-            })
-            .and_then(|e| {
-                Some(e == "xcworkspace" || e == "xcodeproj")
-            })
-            .unwrap_or(false)
+                .and_then(|e| e.to_str())
+                .and_then(|e| {
+                    Some(e == "xcworkspace" || e == "xcodeproj")
+                })
+                .unwrap_or(false)
         })
         .collect::<Result<Vec<_>, io::Error>>()
         .unwrap();
@@ -53,6 +47,6 @@ fn xc_handler() {
                 .output()
                 .expect("Failed to execute process");
         }
-        None => println!("Not found")
-    }
+        None => println!("Not found 😢")
+    };
 }
