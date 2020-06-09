@@ -1,10 +1,9 @@
 extern crate clap;
 use clap::{App, SubCommand};
 use std::{fs, io};
-use std::path::{ PathBuf, Path };
+use std::path::{ PathBuf };
 use fs::ReadDir;
-// use std::path::{Path};
-use std::ffi::OsStr;
+use std::process::Command;
 
 fn main() {
     let matches = App::new("My Super Program")
@@ -27,15 +26,33 @@ fn xc_handler() {
     let paths: ReadDir = fs::read_dir(".")
         .expect("Cannot read");
 
-    let entries: Vec<PathBuf> = paths
+    let mut filtered_paths: Vec<PathBuf> = paths
         .map(|res| res.map(|e| e.path() ))
         .filter(|e| {
-            let e = e.as_ref().unwrap();
-            e.extension().unwrap().to_str().unwrap() == "xcworkspace"
-            || e.extension().unwrap().to_str().unwrap() == "xcodeproj"
+            e.as_ref().unwrap().extension()
+            .and_then(|e| e.to_str())
+            .map(|e| {
+                println!("{:?}", e);
+                e
+            })
+            .and_then(|e| {
+                Some(e == "xcworkspace" || e == "xcodeproj")
+            })
+            .unwrap_or(false)
         })
         .collect::<Result<Vec<_>, io::Error>>()
         .unwrap();
 
-    println!("{:?}", entries);
+    filtered_paths.sort();
+
+    match filtered_paths.pop() {
+        Some(path) => {
+            println!("Open {:?} 🚀", path);
+            Command::new("open")
+                .arg(path)
+                .output()
+                .expect("Failed to execute process");
+        }
+        None => println!("Not found")
+    }
 }
