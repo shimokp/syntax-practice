@@ -1,6 +1,8 @@
 extern crate clap;
 use clap::{App, SubCommand};
-use std::{fs};
+use std::{fs, io};
+use std::path::{ PathBuf, Path };
+use fs::ReadDir;
 // use std::path::{Path};
 use std::ffi::OsStr;
 
@@ -15,26 +17,25 @@ fn main() {
                           .get_matches();
 
     if matches.subcommand_matches("xc").is_some() {
-        println!("Execute for Xcode");
-
-        let paths = fs::read_dir("a")
-            .expect("Cannot read")
-            .filter(|entry| {
-                let entry = entry.clone();
-                let path = entry.expect("").path();
-                let extension = entry.expect("").path().extension().unwrap();
-                return extension == ""
-                    || extension == "xcworkspace";
-            });
-
-        let filteredPaths: Vec<_> = paths
-            .into_iter()
-            .filter(|dir| {
-                let extension = dir.clone().unwrap().path().extension();
-                return extension == Some(OsStr::new("a"))
-                    || extension == Some(OsStr::new("xcworkspace"));
-            })
-            .collect();
-
+        xc_handler()
     }
+}
+
+fn xc_handler() {
+    println!("Execute for Xcode");
+
+    let paths: ReadDir = fs::read_dir(".")
+        .expect("Cannot read");
+
+    let entries: Vec<PathBuf> = paths
+        .map(|res| res.map(|e| e.path() ))
+        .filter(|e| {
+            let e = e.as_ref().unwrap();
+            e.extension().unwrap().to_str().unwrap() == "xcworkspace"
+            || e.extension().unwrap().to_str().unwrap() == "xcodeproj"
+        })
+        .collect::<Result<Vec<_>, io::Error>>()
+        .unwrap();
+
+    println!("{:?}", entries);
 }
